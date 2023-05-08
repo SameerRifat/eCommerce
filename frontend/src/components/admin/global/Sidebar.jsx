@@ -1,0 +1,174 @@
+import { Box, IconButton, Typography, useTheme } from '@mui/material'
+import React from 'react'
+import { useState } from 'react'
+import { tokens } from '../../../theme'
+import { Sidebar as ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
+import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
+import ContactsOutlinedIcon from '@mui/icons-material/ContactsOutlined';
+import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined';
+import PieChartOutlinedIcon from '@mui/icons-material/PieChartOutlined';
+import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
+import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
+import { NavLink } from 'react-router-dom';
+import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
+import ViewModuleOutlinedIcon from '@mui/icons-material/ViewModuleOutlined';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
+import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
+import RateReviewOutlinedIcon from '@mui/icons-material/RateReviewOutlined';
+
+const Item = ({ title, to, icon, selected, setSelected }) => {
+  const theme = useTheme()
+  const colors = tokens(theme.palette.mode)
+  return (
+    <MenuItem
+      active={selected === title}
+      style={{ color: colors.grey[100] }}
+      onClick={() => setSelected(title)}
+      icon={icon}
+      component={<NavLink to={to} />}
+    >
+      <Typography>{title}</Typography>
+    </MenuItem>
+  )
+}
+
+const Sidebar = () => {
+  const theme = useTheme()
+  const colors = tokens(theme.palette.mode)
+  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [selected, setSelected] = useState("Dashboard")
+  return (
+    <ProSidebar defaultCollapsed={isCollapsed} backgroundColor={colors.primary[400]} >
+      <Menu>
+        <MenuItem
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
+        >
+          {!isCollapsed && (
+            <Box display='flex' justifyContent='space-between' alignItems='center' ml='10px'>
+              <NavLink to='/'>
+                <Typography variant='h3' color={colors.grey[100]}>
+                  ECOMMERCE
+                </Typography>
+              </NavLink>
+              <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                <MenuOutlinedIcon />
+              </IconButton>
+            </Box>
+          )}
+        </MenuItem>
+
+        <Box>
+          <Item
+            title="Dashboard"
+            to="/admin/"
+            icon={<DashboardOutlinedIcon />}
+            selected={selected}
+            setSelected={setSelected}
+          />
+          <Typography variant='h6' color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}> Data </Typography>
+          <SubMenu label="Products" icon={<LocalMallOutlinedIcon />}>
+            <MenuItem icon={<ViewModuleOutlinedIcon />} component={<NavLink to='/admin/products' />}> All </MenuItem>
+            <MenuItem icon={<AddOutlinedIcon />} component={<NavLink to='/admin/product' />}> Add </MenuItem>
+          </SubMenu>
+          <Item
+            title="Orders"
+            to='/admin/orders'
+            icon={<ListAltOutlinedIcon />}
+            selected={selected}
+            setSelected={setSelected}
+          />
+          <Item
+            title="Users"
+            to="/admin/users"
+            icon={<PeopleAltOutlinedIcon />}
+            selected={selected}
+            setSelected={setSelected}
+          />
+          <Item
+            title="Reviews"
+            to="/admin/reviews"
+            icon={<RateReviewOutlinedIcon />}
+            selected={selected}
+            setSelected={setSelected}
+          />
+          <Typography variant='h6' color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}> Charts </Typography>
+          <Item
+            title="Bar Chart"
+            to="/admin/bar"
+            icon={<BarChartOutlinedIcon />}
+            selected={selected}
+            setSelected={setSelected}
+          />
+          <Item
+            title="Pie Chart"
+            to="/admin/pie"
+            icon={<PieChartOutlinedIcon />}
+            selected={selected}
+            setSelected={setSelected}
+          />
+          <Item
+            title="Line Chart"
+            to="/admin/line"
+            icon={<TimelineOutlinedIcon />}
+            selected={selected}
+            setSelected={setSelected}
+          />
+        </Box>
+      </Menu>
+    </ProSidebar>
+  )
+}
+
+export default Sidebar
+
+
+// sx={{
+//   '& .ps-menu-button': {
+//     color: `${colors.grey[100]} !important`
+//   },
+//   '& .ps-menu-button:hover': {
+//     backgroundColor: `${colors.primary[500]} !important`
+//   },
+//   '& .ps-menu-button:hover span': {
+//     color: '#868dfb !important'
+//   },
+//   '& .ps-menu-button.ps-active': {
+//     color: '#8670fa !important'
+//   },
+//   '& .ps-submenu-conten': {
+//     backgroundColor: `${colors.primary[300]} !important`
+//   },
+// }}
+
+
+
+// <Box
+    //   backgroundColor={colors.primary[400]}
+    //   borderRight='1px solid #efefef'
+    //   // sx={{
+    //   //   '& .ps-sidebar-container': {
+    //   //     background: `${colors.primary[400]} !important`
+    //   //   },
+    //   //   '& .pro-icon-wrapper': {
+    //   //     backgroundColor: 'transparent !important'
+    //   //   },
+    //   //   '& .pro-inner-item': {
+    //   //     padding: '5px 35px 5px 20px !important'
+    //   //   },
+    //   //   '& .ps-menu-button:hover': {
+    //   //     color: '#868dfb !important'
+    //   //   },
+    //   //   '& .pro-menu-item.active': {
+    //   //     color: '#8670fa !important'
+    //   //   },
+    //   // }} 
+    // >
+    // </Box>

@@ -8,7 +8,7 @@ const cloudinary = require("cloudinary");
 
 // register user
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
-    let myCloud; // Declare myCloud outside the if block
+    let myCloud; 
     // console.log(req.body.avatar !== 'undefined')
     if (req.body.avatar !== 'undefined') {
       myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {

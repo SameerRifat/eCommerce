@@ -30,11 +30,22 @@ class ApiFeatures {
         let queryStr = JSON.stringify(queryStrCopy);
         // console.log(queryStr)
         queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (key)=> `$${key}`)
-        // console.log(JSON.parse(queryStr))
         this.query = this.query.find(JSON.parse(queryStr));
         return this;
     }
-    
+
+    sortProducts(){
+        const order = this.queryStr.order || "";
+        const sortOrder = order === "best rating" ? { ratings: -1 } 
+                        : order === "newest" ? { createdAt: -1 }
+                        : order === "lowest" ? { price: 1 }
+                        : order === "highest" ? { price: -1 }
+                        : { _id: -1 };
+        this.query = this.query.sort(sortOrder);
+        return this;
+        // console.log(this.queryStr.order)
+    }
+
     pagination(resultPerPage){
         const currentPage = Number(this.queryStr.page) || 1;
         const skip = resultPerPage * (currentPage - 1);

@@ -19,12 +19,12 @@ const UserOptions = ({ user }) => {
     const dispatch = useDispatch()
     const { loading, isAuthenticated, error } = useSelector((state) => state.user)
     const options = [
-        { icon: <ListAltIcon style={{color: 'gray'}} />, name: "Orders", func: orders },
-        { icon: <PersonIcon style={{color: 'gray'}} />, name: "Profile", func: account },
-        { icon: <ExitToAppIcon style={{color: 'gray'}} />, name: "Logout", func: logoutUser },
+        { icon: <ListAltIcon style={{ color: 'gray' }} />, name: "Orders", func: orders },
+        { icon: <PersonIcon style={{ color: 'gray' }} />, name: "Profile", func: account },
+        { icon: <ExitToAppIcon style={{ color: 'gray' }} />, name: "Logout", func: logoutUser },
     ]
     if (user && user.role === "admin") {
-        options.unshift({ icon: <DashboardIcon style={{color: 'gray'}}/>, name: "Dashboard", func: dashboard })
+        options.unshift({ icon: <DashboardIcon style={{ color: 'gray' }} />, name: "Dashboard", func: dashboard })
     }
     function orders() {
         navigate("/orders")
@@ -55,13 +55,15 @@ const UserOptions = ({ user }) => {
             {/* Profile dropdown */}
             <Menu as="div" className="relative ml-6">
                 <div>
-                    <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <Menu.Button className="flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span className="sr-only">Open user menu</span>
-                        <img
-                            className="h-8 w-8 rounded-full object-cover"
-                            src={user.avatar.url ? user.avatar.url : "./images/profile.png"}
-                            alt="avatar Preview"
-                        />
+                        <div className='flex rounded-full bg-gradient-to-tr from-pink-500 to-violet-500 p-[1px] '>
+                            <img
+                                className="h-8 w-8 rounded-full object-cover"
+                                src={user.avatar.url ? user.avatar.url : "./images/profile.png"}
+                                alt="avatar Preview"
+                            />
+                        </div>
                     </Menu.Button>
                 </div>
                 <Transition

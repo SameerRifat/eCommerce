@@ -97,3 +97,16 @@ input::-webkit-inner-spin-button {
     outline: none !important;
     border: none !important;
 } */
+
+/* loader spinner */
+.custom-loader {
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    border:6px solid;
+    border-color:#E4E4ED;
+    border-right-color: #766DF4;
+    animation:s2 1s infinite linear;
+    margin-right: 10px;
+  }
+  @keyframes s2 {to{transform: rotate(1turn)}}

@@ -17,6 +17,7 @@ exports.newOrder = catchAsyncErrors(async (req, res, next)=>{
         shippingPrice, 
         totalPrice,
         paidAt: Date.now(),
+        // paidAt: new Date(),
         user: req.user._id
     })
 
@@ -131,21 +132,20 @@ exports.ordersSummary = catchAsyncErrors(async (req, res, next)=>{
             }
         }
     ])
-
     const last12Months = new Date();
     last12Months.setMonth(last12Months.getMonth() - 11);
     const startDate = new Date(last12Months.getFullYear(), last12Months.getMonth(), 2);
     const formattedDate = startDate.toISOString().slice(0, 7);
     const salesLast12Months = await Order.aggregate([
         // Group by month and year
-    {
+        {
         
-        $group: {
-        _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } },
-        numOfOrders: { $sum: 1 },
-        totalSalesAmount: { $sum: '$totalPrice' },
+            $group: {
+            _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } },
+            numOfOrders: { $sum: 1 },
+            totalSalesAmount: { $sum: '$totalPrice' },
+            },
         },
-    },
         // Filter to the last 12 months
         {
             $match: {
@@ -162,6 +162,33 @@ exports.ordersSummary = catchAsyncErrors(async (req, res, next)=>{
             },
         },
     ]);
+    
+    var last7Days = new Date();
+    last7Days.setDate(last7Days.getDate() - 6); // Subtract 6 days to get the last 7 days
+    // var dateBefore7Days = new Date(last7Days.getFullYear(), last7Days.getMonth(), last7Days.getDate());
+    last7Days = last7Days.toISOString().slice(0, 10);
+    const salesLast7Days = await Order.aggregate([
+        // Group by day
+        {
+          $group: {
+            _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+            numOfOrders: { $sum: 1 },
+            totalSalesAmount: { $sum: "$totalPrice" },
+          },
+        },
+        // Filter to the last 7 days
+        {
+          $match: {
+            _id: { $gte: last7Days },
+          },
+        },
+        // Sort by date in ascending order
+        {
+          $sort: {
+            _id: 1,
+          },
+        },
+      ]);
 
     const allOrders = await Order.aggregate([
         // First Stage
@@ -200,11 +227,15 @@ exports.ordersSummary = catchAsyncErrors(async (req, res, next)=>{
         }
     ])
 
+    const recentTransactions = await Order.find().sort({ createdAt: -1 }).limit(10).select('_id createdAt totalPrice').populate('user', 'name');
+
+
     res.status(201).json({
         success: true,
         // last24hrsNumOfOrders: last24hrsOrder[0].numOfOrders,
         // last24hrsTotalSalesAmount: last24hrsOrder[0].totalSalesAmount,
         last24hrsOrder,
+        salesLast7Days,
         // allNumOfOrders: allOrders[0].numOfOrders,
         // allTotalSalesAmount: allOrders[0].totalSalesAmount,
         dailyOrders,
@@ -212,6 +243,7 @@ exports.ordersSummary = catchAsyncErrors(async (req, res, next)=>{
         allOrders,
         allUsers,
         numOfProducts: totalProducts[0].numOfProducts,
-        productCategories
+        productCategories,
+        recentTransactions
     })
 })

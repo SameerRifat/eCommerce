@@ -109,6 +109,7 @@ const ProductDetails = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const { loading, product, error } = useSelector(state => state.productDetails)
+    const { user } = useSelector((state) => state.user)
     const [quantity, setQuantity] = useState(1)
     const [mainImage, setMainImage] = useState({})
     const [selectedColor, setSelectedColor] = useState({})
@@ -133,14 +134,9 @@ const ProductDetails = () => {
             size: selectedColor && selectedSize.size
         }
         e.preventDefault()
-        console.log('Selcted color:', selectedColor)
-        console.log('Selcted size:', selectedSize)
-        console.log(quantity)
-        console.log(cartData)
         dispatch(addItemsToCart(cartData))
         alert.success("Item Added To Cart")
     }
-    // console.log(id)
     useEffect(() => {
         if (product) {
             setMainImage(product.images ? product.images[0] : {})
@@ -165,16 +161,16 @@ const ProductDetails = () => {
                         <div className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 sm:gap-x-8 md:gap-x-14 lg:gap-x-20">
                             <div className='sm:col-span-4 lg:col-span-5'>
                                 <div className="aspect-h-2 aspect-w-2 overflow-hidden rounded-lg bg-gray-100">
-                                <img src={mainImage.url} alt='product image' className="object-cover object-center" />
+                                    <img src={mainImage.url} alt='product image' className="object-contain object-center" />
                                 </div>
                                 <div className='mt-2 grid grid-cols-3 lg:grid-cols-4 gap-2'>
                                     {product.images && product.images.map((img) => {
                                         return (
-                                            <div key={img.id} onClick={() => setMainImage(img)} className="aspect-w-1 w-full overflow-hidden rounded-md h-24 cursor-pointer">
+                                            <div key={img.id} onClick={() => setMainImage(img)} className="aspect-w-1 w-full overflow-hidden rounded-md h-24 cursor-pointer bg-gray-100">
                                                 <img
                                                     src={img.url}
                                                     alt='product image'
-                                                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                                                    className="h-full w-full object-contain object-center lg:h-full lg:w-full"
                                                 />
                                             </div>
                                         )
@@ -182,20 +178,25 @@ const ProductDetails = () => {
                                 </div>
                             </div>
                             <div className="sm:col-span-8 lg:col-span-7">
-                                <h2 className="text-2xl font-bold text-gray-900 sm:pr-12">{product.name}</h2>
+                                <h2 className="text-2xl font-bold text-gray-500 sm:pr-12">{product.name}</h2>
 
                                 <section aria-labelledby="information-heading" className="mt-2">
                                     <h3 id="information-heading" className="sr-only">
                                         Product information
                                     </h3>
 
-                                    <p className="text-2xl text-gray-900">{product.price}</p>
+                                    <p className="text-lg sm:text-2xl font-medium sm:font-semibold text-orange-600">Rs. {product.price}</p>
 
                                     {/* Reviews */}
                                     <div className="mt-6">
                                         <h4 className="sr-only">Reviews</h4>
                                         <div className="flex items-center">
-                                            <Rating {...options} />
+                                            <Rating
+                                                size='medium'
+                                                value={product.ratings}
+                                                readOnly
+                                                precision='0.5'
+                                            />
                                             {/* <div className="flex items-center">
                                         {[0, 1, 2, 3, 4].map((rating) => (
                                             <StarIcon
@@ -225,7 +226,7 @@ const ProductDetails = () => {
                                         {/* Colors */}
                                         {product && product.colors.length > 0 &&
                                             <div>
-                                                <h4 className="text-sm font-medium text-gray-900">Color</h4>
+                                                <h4 className="text-sm font-semibold text-gray-600">Color:</h4>
 
                                                 <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-4">
                                                     <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
@@ -245,11 +246,11 @@ const ProductDetails = () => {
                                                                 <RadioGroup.Label as="div" className="sr-only">
                                                                     <img src={color.url} alt='color images' />
                                                                 </RadioGroup.Label>
-                                                                <div className="aspect-w-1 min-w-[64px] overflow-hidden rounded-sm h-16 cursor-pointer">
+                                                                <div className="aspect-w-1 min-w-[64px] overflow-hidden rounded-sm h-16 cursor-pointer bg-gray-100">
                                                                     <img
                                                                         src={color.url}
                                                                         alt='product colors preview'
-                                                                        className="h-full w-full object-cover object-center"
+                                                                        className="h-full w-full object-contain object-center"
                                                                     />
                                                                 </div>
                                                             </RadioGroup.Option>
@@ -263,10 +264,10 @@ const ProductDetails = () => {
                                         {product && product.sizes.length > 0 &&
                                             <div className="mt-10">
                                                 <div className="flex items-center justify-between">
-                                                    <h4 className="text-sm font-medium text-gray-900">Size</h4>
-                                                    <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                                    <h4 className="text-sm font-semibold text-gray-600">Size:</h4>
+                                                    {/* <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                                                         Size guide
-                                                    </a>
+                                                    </a> */}
                                                 </div>
 
                                                 <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
@@ -410,21 +411,25 @@ const ProductDetails = () => {
                     <section className='py-6 px-4 sm:px-6 lg:px-28'>
                         <div className='w-full md:w-[80%] lg:w-[60%]'>
                             <h1 className='text-lg font-bold text-gray-600 px-1 border-b-2 border-gray-300 w-fit'>Reviews</h1>
-                            {reviews.map((review, ind) => {
-                                const { id, name, rating, comment, reviewedAt } = review
+                            {product.reviews.map((review, ind) => {
+                                const { _id, name, rating, comment, reviewedAt } = review
                                 const options = {
                                     value: rating,
                                     readOnly: true,
                                     precision: 0.5
                                 }
                                 return (
-                                    <div key={id} className="relative mt-9 flex items-center gap-x-4 border-b last:border-b-0 border-gray-200 pb-4">
-                                        <img src={imageUrl} alt="avatar" className="h-10 w-10 rounded-full bg-gray-50 self-start" />
+                                    <div key={_id} className="relative mt-9 flex items-center gap-x-4 border-b last:border-b-0 border-gray-200 pb-4">
+                                        <img
+                                            src={user?.avatar?.url ? user.avatar.url : "./images/profile.png"}
+                                            alt="avatar"
+                                            className="h-12 w-12 flex-none rounded-full bg-gray-50 self-start"
+                                        />
                                         <div className="text-sm leading-6">
                                             <p className="font-semibold text-gray-900">
                                                 {name}
                                             </p>
-                                            <p>{reviewedAt}</p>
+                                            <p>{reviewedAt.slice(0, 10)}</p>
                                             <Rating {...options} size='small' className='my-3' />
                                             <p>{comment}</p>
                                         </div>

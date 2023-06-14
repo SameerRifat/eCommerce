@@ -1,5 +1,5 @@
 import { Box, IconButton, Typography, useTheme } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import { tokens } from '../../../theme'
 import { Sidebar as ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
@@ -22,6 +22,7 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import RateReviewOutlinedIcon from '@mui/icons-material/RateReviewOutlined';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme()
@@ -44,11 +45,36 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode)
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [selected, setSelected] = useState("Dashboard")
+  const [width, setWidth] = useState(window.innerWidth);
+  const menuBtn = useRef(null)
+  const collapseHandler = ()=>{
+    if(width < 1050){
+      menuBtn.current.disabled = true;
+    }else{
+      menuBtn.current.disabled = false;
+      setIsCollapsed(!isCollapsed)
+    }
+  }
+  function getSize() {
+    setWidth(window.innerWidth)
+  }
+  useEffect(()=>{
+    window.addEventListener('resize', getSize)
+    if(width < 1050){
+      setIsCollapsed(true)
+    }else{
+      setIsCollapsed(false)
+    }
+    return ()=>{
+      window.removeEventListener('resize', getSize)
+    }
+  }, [window.innerWidth])
+  console.log(width)
   return (
-    <ProSidebar defaultCollapsed={isCollapsed} backgroundColor={colors.primary[400]} >
+    <ProSidebar defaultCollapsed={isCollapsed}  backgroundColor={colors.primary[400]} >
       <Menu>
         <MenuItem
-          onClick={() => setIsCollapsed(!isCollapsed)}
+          onClick={collapseHandler} ref={menuBtn}
           icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
         >
           {!isCollapsed && (
@@ -58,7 +84,7 @@ const Sidebar = () => {
                   ECOMMERCE
                 </Typography>
               </NavLink>
-              <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+              <IconButton onClick={()=> setIsCollapsed(!isCollapsed)}>
                 <MenuOutlinedIcon />
               </IconButton>
             </Box>
@@ -118,6 +144,13 @@ const Sidebar = () => {
             title="Line Chart"
             to="/admin/line"
             icon={<TimelineOutlinedIcon />}
+            selected={selected}
+            setSelected={setSelected}
+          />
+          <Item
+            title="Support"
+            to="/admin/support"
+            icon={<SupportAgentIcon />}
             selected={selected}
             setSelected={setSelected}
           />

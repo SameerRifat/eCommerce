@@ -84,7 +84,9 @@ const NewProduct = () => {
         myForm.set("description", description)
         myForm.set("category", value)
         myForm.set("stock", stock)
-        if(sizes.length > 0){
+        if (sizes.length > 0) {
+            console.log(sizes)
+            // myForm.set("sizes", sizes)
             const sizesObjectsArray = sizes.map(size => ({ size }));
             myForm.set("sizes", JSON.stringify(sizesObjectsArray))
         }
@@ -129,7 +131,7 @@ const NewProduct = () => {
         <>
             <MetaData title="Create Product" />
             <Box m='20px'>
-                <AdminHeader title="create user" subtitle="create a new user profile" />
+                <AdminHeader title="create product" subtitle="create a new product" />
                 <Formik
                     onSubmit={handleFormSubmit}
                     initialValues={initialValues}
@@ -258,7 +260,7 @@ const NewProduct = () => {
                                         )}
                                         onChange={handleAutocompleteChange}
                                     />
-                                    <FormHelperText sx={{ color: '#D32F2F', ml: '10px' }}>{categoryErrorMessage && categoryErrorMessage}</FormHelperText>
+                                    {/* <FormHelperText sx={{ color: '#D32F2F', ml: '10px' }}>{categoryErrorMessage && categoryErrorMessage}</FormHelperText> */}
                                 </Grid>
 
                                 <Grid item sm={12}>
@@ -281,7 +283,7 @@ const NewProduct = () => {
                                     <div style={{ border: `1px dashed ${colors.grey[600]}`, borderRadius: '8px' }} className='flex gap-2 overflow-x-auto p-2'>
                                         {imagesPreview.length > 0 ? (
                                             imagesPreview.map((image, ind) => (
-                                                <div key={ind} className="aspect-w-1 min-w-[80px] overflow-hidden rounded-md h-20 cursor-pointer">
+                                                <div key={ind} className="aspect-w-1 min-w-[80px] overflow-hidden rounded-md h-20 cursor-pointer bg-gray-200">
                                                     <img
                                                         src={image}
                                                         alt='product colors preview'
@@ -290,7 +292,7 @@ const NewProduct = () => {
                                                 </div>
                                             ))
                                         ) : (
-                                            <img src="https://www.shoptheoldemercantile.com/image/cache/catalog/placeholderproduct-max-428.png" alt="Placeholder Image" className="h-20 w-20" />
+                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUc9A3lU2z__DzLc_FaJVc8AKs8SWRzF9ilE7Q-HAhowAjpNndg2uZKcseeYSWRRQowss&usqp=CAU" alt="Placeholder Image" className="h-20 w-20" />
                                         )}
                                     </div>
                                 </Grid>
@@ -319,7 +321,7 @@ const NewProduct = () => {
                                     <div style={{ border: `1px dashed ${colors.grey[600]}`, borderRadius: '8px' }} className='flex gap-2 overflow-x-auto p-2'>
                                         {colorImagesPreview.length > 0 ? (
                                             colorImagesPreview.map((image, ind) => (
-                                                <div key={ind} className="aspect-w-1 min-w-[80px] overflow-hidden rounded-md h-20 cursor-pointer">
+                                                <div key={ind} className="aspect-w-1 min-w-[80px] overflow-hidden rounded-md h-20 cursor-pointer bg-gray-200">
                                                     <img
                                                         src={image}
                                                         alt='product colors preview'
@@ -328,7 +330,7 @@ const NewProduct = () => {
                                                 </div>
                                             ))
                                         ) : (
-                                            <img src="https://www.shoptheoldemercantile.com/image/cache/catalog/placeholderproduct-max-428.png" alt="Placeholder Image" className="h-20 w-20" />
+                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUc9A3lU2z__DzLc_FaJVc8AKs8SWRzF9ilE7Q-HAhowAjpNndg2uZKcseeYSWRRQowss&usqp=CAU" alt="Placeholder Image" className="h-20 w-20" />
                                         )}
                                     </div>
                                 </Grid>
@@ -353,10 +355,17 @@ const NewProduct = () => {
                                     </Box>
                                 </Grid>
                             </Grid>
-                            <Box display='flex' justifyContent='end' mt='20px' sx={{ '& button:disabled': { opacity: '0.4' } }}>
-                                <Button disabled={loading} type='submit' color='secondary' variant='contained'>
-                                    Create New Product
-                                </Button>
+                            <Box display='flex' justifyContent='end' mt='20px'>
+                                <button type='submit' disabled={loading}
+                                    className='min-w-[200px] h-11 flex justify-center items-center rounded-md bg-gradient-to-tr from-pink-500 to-violet-500  hover:from-pink-600 hover:to-violet-600 cursor-pointer px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 disabled:opacity-75'
+                                >
+                                    {loading ? <> <div class="custom-loader"></div> Creating... </> : "Create New Product"}
+                                    {/* <div class="custom-loader"></div>Processing... */}
+                                </button>
+                                {/* <Button disabled={loading} type='submit' color='secondary' variant='contained' style={{width: '200px', height: '50px'}}>
+                                    {loading ? <div class="custom-loader"></div> : "Create New Product"}
+                                    <div class="custom-loader"></div>
+                                </Button> */}
                             </Box>
                         </Form>
                     )}

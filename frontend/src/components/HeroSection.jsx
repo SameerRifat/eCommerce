@@ -37,12 +37,12 @@ const HeroSection = () => {
                             {/* from-[rgb(255,171,45)] to-[rgb(255,79,25)] */} 
                         </h1>
                         {/* <h1 className='text-2xl md:text-4xl lg:text-5xl font-extrabold mt-2 bg-clip-text text-transparent bg-gradient-to-tr from-pink-500 to-violet-500'><span className='italic'>Summer</span> <span className='uppercase bg-clip-text text-transparent bg-gradient-to-tr from-[rgb(255,153,0)] to-[rgb(255,79,25)]'>Fashion</span> <span>Sale</span></h1> */}
-                        <a href="#"
+                        <NavLink to="/products"
                             className="rounded-full bg-gradient-to-tr from-pink-500 to-violet-500 self-center px-6 py-2 md:px-7 md:py-3 mt-7 text-base md:text-xl uppercase font-medium sm:font-bold md:font-extrabold text-white shadow-sm hover:from-pink-500 hover:to-yellow-500"
 
                         >
                             Shop now
-                        </a>
+                        </NavLink>
                     </div>
                     <div className="hidden md:inline-block aspect-w-1 w-full overflow-hidden h-full">
                         <img className="h-full w-full object-cover object-center lg:object-contain lg:h-full lg:w-full" src="/images/banner3.png" alt="Modern building architecture" />

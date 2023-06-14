@@ -43,6 +43,9 @@ const DashboardApp = () => {
                             '& .css-z5rm24': {
                                 backgroundColor: `${colors.primary[400]} !important`
                             },
+                            // '& .ps-submenu-content .ps-menu-button': {
+                            //     color: `black !important`
+                            // },
                         }}
                     >
                         <Sidebar />

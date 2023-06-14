@@ -58,7 +58,7 @@ const MyOrders = () => {
         const id = params.row.id;
         return (
           <NavLink to={`/order/${id}`} className='text-violet-500 hover:text-pink-500'>
-            <LaunchIcon style={{fontSize: '20px'}} />
+            <LaunchIcon style={{ fontSize: '20px' }} />
           </NavLink>
         );
       },
@@ -89,59 +89,53 @@ const MyOrders = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="pt-24 ">
-          <Box
-            width='90%'
-            mx='auto'
-            sx={{
-              '.text-green':{
-                color: 'green' 
-              },
-              '.text-blue':{
-                color: 'blue' 
-              },
-              '>div':{
-                fontSize: '16px' 
-              },
-              // '& .MuiDataGrid-root': {
-              //   border: 'none'
-              // },
-              // '& .MuiDataGrid-cell': {
-              //   borderBottom: 'none'
-              // },
-              '& .MuiDataGrid-columnHeaders': {
-                borderBottom: 'none',
-                backgroundColor: 'rgb(209 213 219)'
-              },
-              '& .MuiDataGrid-columnHeaderTitle': {
-                fontSize: '16px',
-                fontWeight: '600',
-                color: 'grey'
-              },
-              // Middle section background color
-              // '& .MuiDataGrid-virtualScroller': {
-              //   backgroundColor: colors.primary[400]
-              // },
-              // '& .MuiDataGrid-footerContainer ': {
-              //   borderTop: 'none',
-              //   backgroundColor: colors.blueAccent[700]
-              // },
-              // '& .MuiDataGrid-toolbarContainer .MuiButton-text': {
-              //   color: `${colors.grey[100]} !important`
-              // },
-            }}
-          >
-            <DataGrid
-              rows={rows}
-              columns={columns}
-              pageSizeOptions={[10]}
-              disableRowSelectionOnClick
-              autoHeight
-              className="text-2xl"
-            />
-            <div className="bg-gray-300 text-center text-base py-1.5 font-semibold">{`${user.name}'s Orders`}</div>
-          </Box>
-        </div>
+        orders.length > 0 ? (
+          <div className="pt-24 pb-10">
+            <Box
+              width='90%'
+              mx='auto'
+              sx={{
+                '.text-green': {
+                  color: 'green'
+                },
+                '.text-blue': {
+                  color: 'blue'
+                },
+                '>div': {
+                  fontSize: '16px'
+                },
+                '& .MuiDataGrid-columnHeaders': {
+                  borderBottom: 'none',
+                  backgroundColor: 'rgb(209 213 219)'
+                },
+                '& .MuiDataGrid-columnHeaderTitle': {
+                  fontSize: '16px',
+                  fontWeight: '600',
+                  color: 'grey'
+                },
+              }}
+            >
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                pageSizeOptions={[10]}
+                disableRowSelectionOnClick
+                autoHeight
+                className="text-2xl"
+              />
+              <div className="bg-gray-300 text-center text-base py-1.5 font-semibold">{`${user.name}'s Orders`}</div>
+            </Box>
+          </div>
+        )
+          :
+          (
+            <div className='w-[90%] h-[60vh] mx-auto flex flex-col justify-center items-center gap-4 pt-10'>
+              {/* <RemoveShoppingCartIcon className='text-4xl text-orange-500' style={{ fontSize: '40px' }} /> */}
+              <h2 className="text-lg text-orange-500 font-extrabold">No orders available at the moment</h2>
+              <p className="text-gray-500 text-sm">Please click the button below and place the order </p>
+              <NavLink to='/products' className='bg-gray-400 hover:bg-gray-500 shadow-sm font-semibold text-white border-none outline-0 py-4 px-5'>View Products</NavLink>
+            </div>
+          )
       )}
     </>
   );

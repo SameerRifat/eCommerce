@@ -58,11 +58,11 @@ const ConfirmOrder = () => {
                                 {cartItems.map((item) => {
                                     return <div className="flex justify-between items-center border-t border-gray-200 py-6 last:border-b  last:border-gray-200" key={item.product}>
                                         <div className='flex gap-3 items-center'>
-                                            <div className="aspect-w-1 min-w-[96px] md:min-w-[112px] overflow-hidden rounded-sm h-28 md:h-32 cursor-pointer">
+                                            <div className="aspect-w-1 min-w-[96px] md:min-w-[112px] overflow-hidden rounded-sm h-28 md:h-32 cursor-pointer bg-gray-200">
                                                 <img
                                                     src={item.image}
                                                     alt='product colors preview'
-                                                    className="h-full w-full object-cover object-center"
+                                                    className="h-full w-full object-contain object-center"
                                                 />
                                             </div>
                                             <div>
@@ -71,7 +71,7 @@ const ConfirmOrder = () => {
                                             </div>
                                         </div>
                                         <p>
-                                            ${item.price} * {item.quantity} = ${item.price * item.quantity}
+                                        <small>Rs.</small> {item.price} * {item.quantity} = {item.price * item.quantity}
                                         </p>
                                     </div>
                                 })}
@@ -82,7 +82,7 @@ const ConfirmOrder = () => {
                         <h3 className='font-bold border-b border-gray-300 pb-1 inline-block mx-auto'>Order Summary</h3>
                         <div className='flex justify-between border-b border-gray-300 pb-3'>
                             <h4>Subtotal :</h4>
-                            <h3>${subtotal}</h3>
+                            <h3>Rs. {subtotal}</h3>
                         </div>
                         <div className='flex justify-between border-b border-gray-300 pb-3'>
                             <h4>Shipping Charges :</h4>
@@ -94,7 +94,7 @@ const ConfirmOrder = () => {
                         </div> */}
                         <div className='flex justify-between border-b border-gray-300 pb-3'>
                             <h4>Total Price :</h4>
-                            <h3>${totalPrice}</h3>
+                            <h3>Rs. {totalPrice}</h3>
                         </div>
                         <button className='bg-gradient-to-tr from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600 rounded-md text-white py-3 font-semibold shadow-sm' onClick={proceedToPayment}>Proceed To Payment</button>
                     </div>

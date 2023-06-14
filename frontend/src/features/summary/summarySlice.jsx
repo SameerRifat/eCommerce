@@ -6,10 +6,12 @@ const initialState = {
     last24hrsOrder: [],
     dailyOrders: [],
     salesLast12Months: [],
+    salesLast7Days: [],
     allOrders: [],
     allUsers: [],
     productCategories: [],
     numOfProducts: 0,
+    recentTransactions: [],
     error: "",
 };
 
@@ -51,10 +53,12 @@ const SummarySlice = createSlice({
             state.last24hrsOrder = action.payload.last24hrsOrder
             state.dailyOrders = action.payload.dailyOrders
             state.salesLast12Months = action.payload.salesLast12Months
+            state.salesLast7Days = action.payload.salesLast7Days
             state.allOrders = action.payload.allOrders
             state.allUsers = action.payload.allUsers
             state.numOfProducts = action.payload.numOfProducts
             state.productCategories = action.payload.productCategories
+            state.recentTransactions = action.payload.recentTransactions
         })
         builder.addCase(getOrdersSummary.rejected, (state, action) => {
             state.loading = false

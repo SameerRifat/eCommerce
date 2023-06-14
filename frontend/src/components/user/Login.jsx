@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import TextField from '@mui/material/TextField';
 import { Field, Form, Formik } from 'formik'
 import * as yup from 'yup'
-import { Box } from '@mui/material';
+import { Box, FormHelperText, IconButton, InputAdornment, OutlinedInput } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { clear_errors, login } from '../../features/user/userSlice';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAlert } from 'react-alert';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 
 const userSchema = yup.object().shape({
     email: yup.string().email("Invalid email").required("required"),
@@ -23,6 +26,7 @@ const userSchema = yup.object().shape({
 const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [showPassword, setShowPassword] = useState(false);
     const { loading, isAuthenticated, error } = useSelector((state) => state.user)
     const handleFormSubmit = async (values, actions) => {
         const myForm = new FormData();
@@ -116,6 +120,33 @@ const Login = () => {
                                             </div>
                                         </div>
                                         <div className="mt-2">
+                                            <OutlinedInput
+                                                fullWidth
+                                                size='small'
+                                                id="outlined-adornment-password"
+                                                type={showPassword ? 'text' : 'password'}
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.password}
+                                                name='password'
+                                                endAdornment={
+                                                    <InputAdornment position="end">
+                                                        <IconButton
+                                                            aria-label="toggle password visibility"
+                                                            onClick={() => setShowPassword((show) => !show)}
+                                                            edge="end"
+                                                        >
+                                                            {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                }
+                                                error={!!touched.password && !!errors.password}
+                                            />
+                                            <FormHelperText sx={{ color: '#D32F2F', ml: '12px' }}>
+                                                {touched.password && errors.password}
+                                            </FormHelperText>
+                                        </div>
+                                        {/* <div className="mt-2">
                                             <TextField
                                                 fullWidth
                                                 size='small'
@@ -128,12 +159,12 @@ const Login = () => {
                                                 error={!!touched.password && !!errors.password}
                                                 helperText={touched.password && errors.password}
                                             />
-                                        </div>
+                                        </div> */}
                                     </div>
                                     <div>
                                         <button
                                             type="submit"
-                                            className="flex w-full justify-center rounded-md bg-gradient-to-tr from-pink-500 to-violet-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                            className="flex w-full justify-center rounded-md bg-gradient-to-tr from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                         >
                                             Sign in
                                         </button>

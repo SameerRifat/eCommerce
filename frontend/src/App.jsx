@@ -40,6 +40,11 @@ import Footer from './components/Footer'
 import UpdatePassword from './components/user/UpdatePassword'
 import ForgotPassword from './components/user/ForgotPassword'
 import ResetPassword from './components/user/ResetPassword'
+import BarChart from './components/admin/charts/BarChart'
+import Bar from './components/admin/chartScenes/Bar'
+import ChatBox from './components/ChatBox'
+import { useSelector } from 'react-redux'
+import SupportScreen from './components/admin/SupportScreen'
 
 const App = () => {
   const { pathname } = useLocation();
@@ -53,6 +58,7 @@ const App = () => {
     const { data } = await axios.get("/api/v1/stripeapikey");
     setStripeApiKey(data.stripeApiKey)
   }
+  const { loading, isAuthenticated, user, error } = useSelector((state) => state.user)
   useEffect(() => {
     store.dispatch(loadUser());
     getStripeApiKey()
@@ -97,8 +103,11 @@ const App = () => {
           <Route path='/admin/reviews' element={<ProtectedRoute isAdmin={true}><ProductReviews /></ProtectedRoute>} />
           <Route path='/admin/pie' element={<ProtectedRoute isAdmin={true}><PieChart /></ProtectedRoute>} />
           <Route path='/admin/line' element={<ProtectedRoute isAdmin={true}><LineChart /></ProtectedRoute>} />
+          <Route path='/admin/bar' element={<ProtectedRoute isAdmin={true}><Bar /></ProtectedRoute>} />
+          <Route path='/admin/support' element={<ProtectedRoute isAdmin={true}><SupportScreen /></ProtectedRoute>} />
         </Route>
       </Routes>
+      {!loading && user && user.role !== 'admin' && <ChatBox userInfo={user} />}
       {showHeaderAndFooter && <Footer />}
     </>
   )

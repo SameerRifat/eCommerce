@@ -54,6 +54,10 @@ const productSchema = new mongoose.Schema({
         }
     ],
     sizes: [
+        // {
+        //     type: String,
+        //     required: false
+        // }
         {
             size: {
                 type: String,
@@ -93,6 +97,10 @@ const productSchema = new mongoose.Schema({
             comment: {
                 type: String,
                 required: true
+            },
+            reviewedAt: {
+                type: Date,
+                default: Date.now
             }
         }
     ],

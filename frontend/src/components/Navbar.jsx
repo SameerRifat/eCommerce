@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import { Dialog, Popover, Tab, Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import {
@@ -15,8 +15,8 @@ initTE({ Carousel });
 
 const navigation = [
     { name: 'Products', href: '/products' },
-    { name: 'Women', href: '#' },
-    { name: 'Men', href: '#' },
+    // { name: 'Women', href: '#' },
+    // { name: 'Men', href: '#' },
     // { name: 'Company', href: '#' },
 ]
 
@@ -29,6 +29,7 @@ const Navbar = () => {
     const [open, setOpen] = useState(false)
     const [keyword, setKeyword] = useState('')
     const { isAuthenticated, user } = useSelector((state) => state.user)
+    const { cartItems } = useSelector((state) => state.cart)
     const handleSubmit = (e) => {
         e.preventDefault()
         if (keyword.trim()) {
@@ -45,7 +46,7 @@ const Navbar = () => {
                     <div className="fixed inset-0 z-50" />
                     <Dialog.Panel className="fixed inset-y-0 left-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                         <div className="flex items-center justify-between">
-                            <NavLink to='/' className="-m-1.5 p-1.5">
+                            <NavLink to='/' className="-m-1.5 p-1.5" onClick={() => setOpen(false)}>
                                 <span className="sr-only">Your Company</span>
                                 <img
                                     className="h-8 w-auto"
@@ -70,6 +71,7 @@ const Navbar = () => {
                                         <NavLink
                                             to={item.href}
                                             key={item.name}
+                                            onClick={() => setOpen(false)}
                                             className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                         >
                                             {item.name}
@@ -88,7 +90,7 @@ const Navbar = () => {
 
                 {/* <header className="relative bg-no-repeat bg-cover bg-[url('/images/bg-img7.svg')]"> */}
                 <header className="absolute w-full z-20 bg-transparent">
-                    <nav aria-label="Top" className="mx-auto w-[90%] px-2">
+                    <nav aria-label="Top" className="mx-auto w-[96%] md:w-[90%] px-2">
                         {/* border-b border-gray-200 */}
                         <div className="flex h-16 items-center ">
                             <button
@@ -102,7 +104,7 @@ const Navbar = () => {
 
                             {/* Logo */}
                             <div className="ml-4 flex-none lg:ml-0">
-                                <NavLink to='/'>
+                                <NavLink to='/' className='flex items-center gap-1'>
                                     <span className="sr-only">Your Company</span>
                                     <img
                                         className="h-8 w-auto"
@@ -110,6 +112,12 @@ const Navbar = () => {
                                         // src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                                         alt=""
                                     />
+                                    <h2
+                                        className='hidden md:inline-block font-extrabold text-transparent text-2xl bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500 uppercase'
+                                        // className='uppercase text-lg font-bold text-gray-500 bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500'
+                                    >
+                                        Ecommerece
+                                    </h2>
                                 </NavLink>
                                 {/* <a href="/">
                                     <span className="sr-only">Your Company</span>
@@ -124,7 +132,7 @@ const Navbar = () => {
                             {/* Flyout menus */}
                             <div className="hidden lg:flex lg:ml-8 lg:gap-x-12">
                                 {navigation.map((item) => (
-                                    <NavLink key={item.name} to={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+                                    <NavLink key={item.name} to={item.href} className="text-base font-semibold leading-6 text-gray-500">
                                         {item.name}
                                     </NavLink>
                                     // <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
@@ -178,7 +186,7 @@ const Navbar = () => {
                                             className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                                             aria-hidden="true"
                                         />
-                                        <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                                        <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{cartItems.length}</span>
                                         <span className="sr-only">items in cart, view bag</span>
                                     </NavLink>
                                 </div>

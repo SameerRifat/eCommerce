@@ -10,10 +10,11 @@ const initialState = {
     error: ''
 }
 
-export const fetchProducts = createAsyncThunk('product/fetchProducts', async ({ keyword='', currentPage=1, price=[0, 25000], category, ratings=0 } )=>{
-    let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+export const fetchProducts = createAsyncThunk('product/fetchProducts', async ({ keyword='', currentPage=2, price=[0, 25000], category, ratings=0 , order=''} )=>{
+    let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}&order=${order}`;
     if(category){
-        link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+        // link = `/api/v1/products?keyword=${keyword}&page=2&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+        link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}&order=${order}`;
     }
     // console.log(category)
     const response = await axios.get(link);

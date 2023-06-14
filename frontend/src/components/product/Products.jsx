@@ -13,16 +13,20 @@ import { useParams } from 'react-router-dom'
 import Pagination from 'react-js-pagination'
 import MetaData from '../MetaData'
 import { getAllCategories } from '../../features/product/categoriesSlice'
-import { Rating, Slider } from '@mui/material'
+import { IconButton, Rating, Slider } from '@mui/material'
+import { styled } from '@mui/material/styles';
+import Chip from '@mui/material/Chip';
+import Paper from '@mui/material/Paper';
+import CloseIcon from '@mui/icons-material/Close';
 
 const categories = ["Laptop", "SmartPhone", "Camera", "Footwear", "T-Shirt", "Pants"];
 
 const sortOptions = [
-    { name: 'Most Popular', href: '#', current: true },
-    { name: 'Best Rating', href: '#', current: false },
-    { name: 'Newest', href: '#', current: false },
-    { name: 'Price: Low to High', href: '#', current: false },
-    { name: 'Price: High to Low', href: '#', current: false },
+    { name: 'Newest', href: '#', value: 'newest', current: true },
+    // { name: 'Most Popular', href: '#', value: 'most popular', current: false },
+    { name: 'Best Rating', href: '#', value: 'best rating', current: false },
+    { name: 'Price: Low to High', href: '#', value: 'lowest', current: false },
+    { name: 'Price: High to Low', href: '#', value: 'highest', current: false },
 ]
 const subCategories = [
     { name: 'Totes', href: '#' },
@@ -96,6 +100,10 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
+const ListItem = styled('li')(({ theme }) => ({
+    margin: theme.spacing(0.5),
+}));
+
 const Products = () => {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     let { keyword } = useParams();
@@ -106,7 +114,27 @@ const Products = () => {
     const [price, setPrice] = useState([0, 25000])
     const [category, setCategory] = useState("")
     const [ratings, setRatings] = useState(0)
-
+    const [order, setOrder] = useState('')
+    // filters array
+    // const [chipData, setChipData] = React.useState([
+    //     // { key: 0, label: 'Angular' },
+    //     // { key: 1, label: 'jQuery' },
+    //     // { key: 2, label: 'Polymer' },
+    //     // { key: 3, label: 'React' },
+    //     // { key: 4, label: 'Vue.js' },
+    // ]);
+    // console.log(chipData)
+    // const handleAdd = (chipData)=>{
+    //     setChipData((chips)=> [...chips, chipData])
+    // }
+    // const handleDelete = (chipToDelete) => () => {
+    //     setChipData((chips) => chips.filter((chip) => chip.key !== chipToDelete.key));
+    // };
+    const clearAllFilters = () => {
+        setPrice([0, 25000])
+        setCategory('')
+        setRatings(0)
+    }
     const handleRatingsChange = (option) => {
         setRatings(option);
         setMobileFiltersOpen(false)
@@ -129,7 +157,8 @@ const Products = () => {
         currentPage,
         price,
         category,
-        ratings
+        ratings,
+        order
     }
     const applyPriceFilter = () => {
         dispatch(fetchProducts(data))
@@ -144,8 +173,9 @@ const Products = () => {
         }
         // console.log(data)
         dispatch(fetchProducts(data))
-    }, [dispatch, error, productCount, keyword, currentPage, price, category, ratings])
-
+    }, [dispatch, error, productCount, keyword, currentPage, price, category, ratings, order])
+    console.log(category !== '' || ratings !== 0 || price[0] !== 0 || price[1] !== 25000)
+    console.log(ratings)
     return (
         <div className="bg-gray-50 pt-10 min-h-screen">
             <div>
@@ -199,7 +229,7 @@ const Products = () => {
                                             ))}
                                         </ul> */}
                                         <div className='border-t border-gray-200 px-4 py-5'>
-                                            <p className="font-medium text-gray-900">Price</p>
+                                            <p className="text-gray-900 font-semibold">Price</p>
                                             <p className="font-normal">Select Price Range</p>
                                             <div className='w-full px-2 '>
                                                 <Slider
@@ -363,16 +393,27 @@ const Products = () => {
                                             {sortOptions.map((option) => (
                                                 <Menu.Item key={option.name}>
                                                     {({ active }) => (
-                                                        <a
-                                                            href={option.href}
+                                                        <p
+                                                            onClick={() => setOrder(option.value)}
                                                             className={classNames(
                                                                 option.current ? 'font-medium text-gray-900' : 'text-gray-500',
                                                                 active ? 'bg-gray-100' : '',
-                                                                'block px-4 py-2 text-sm'
+                                                                'block px-4 py-2 text-sm cursor-pointer'
                                                             )}
                                                         >
                                                             {option.name}
-                                                        </a>
+                                                        </p>
+
+                                                        // <a
+                                                        //     href={option.href}
+                                                        //     className={classNames(
+                                                        //         option.current ? 'font-medium text-gray-900' : 'text-gray-500',
+                                                        //         active ? 'bg-gray-100' : '',
+                                                        //         'block px-4 py-2 text-sm'
+                                                        //     )}
+                                                        // >
+                                                        //     {option.name}
+                                                        // </a>
                                                     )}
                                                 </Menu.Item>
                                             ))}
@@ -414,7 +455,7 @@ const Products = () => {
                                     <input type="number" name="min" className='w-20 h-auto p-1 text-center border-1 border-gray-400 ml-1' value={price[1]} onChange={(e)=> setPrice([parseInt(e.target.value), price[1]])} />
                                 </div> */}
                                 <div className='border-b border-gray-200 pb-5'>
-                                    <p className="font-medium text-gray-900">Price</p>
+                                    <p className="font-semibold text-gray-900">Price</p>
                                     <p className="font-normal pl-1 mb-1">Select Price Range</p>
                                     <div className='px-3 flex items-center'>
                                         <Slider
@@ -454,7 +495,7 @@ const Products = () => {
                                                 <div className="space-y-6">
                                                     {categories.map((option, optionIdx) => (
                                                         <div key={option} className="flex items-center">
-                                                            <p onClick={() => setCategory(option)} className="cursor-pointer min-w-0 flex-1 text-gray-500">
+                                                            <p onClick={() => { setCategory(option); handleAdd(category) }} className="cursor-pointer min-w-0 flex-1 text-gray-500">
                                                                 {option}
                                                             </p>
                                                         </div>
@@ -550,6 +591,38 @@ const Products = () => {
 
                             {/* Product grid */}
                             <div className="lg:col-span-3">
+                                <div className='flex gap-2 flex-wrap'>
+                                    {price[0] === 0 && price[1] === 25000 ? '' :
+                                        <div className='bg-gray-200 flex gap-1 items-center py-2 px-2 rounded-3xl'>
+                                            <span className='text-sm'>{price[0]} - {price[1]}</span>
+                                            <button onClick={() => setPrice([0, 25000])} className='flex items-center justify-center bg-gray-300 rounded-full p-0.5'>
+                                                <CloseIcon style={{ fontSize: '16px' }} />
+                                            </button>
+                                        </div>
+                                    }
+                                    {category &&
+                                        <div className='bg-gray-200 flex gap-1 items-center py-2 px-2 rounded-3xl'>
+                                            <span className='text-sm'>{category}</span>
+                                            <button onClick={() => setCategory('')} className='flex items-center justify-center bg-gray-300 rounded-full p-0.5'>
+                                                <CloseIcon style={{ fontSize: '16px' }} />
+                                            </button>
+                                        </div>
+                                    }
+                                    {ratings !== 0 &&
+                                        <div className='bg-gray-200 flex gap-1 items-center py-2 px-2 rounded-3xl'>
+                                            <span className='text-sm'>ratings {ratings} & above</span>
+                                            <button onClick={() => setRatings(0)} className='flex items-center justify-center bg-gray-300 rounded-full p-0.5'>
+                                                <CloseIcon style={{ fontSize: '16px' }} />
+                                            </button>
+                                        </div>
+                                    }
+                                    {category !== '' || ratings !== 0 || price[0] !== 0 || price[1] !== 25000 ?
+                                        <button onClick={clearAllFilters} className='bg-violet-500 hover:bg-violet-600 text-white text-sm py-1.5 px-2 rounded-lg'>
+                                            Clear Filters
+                                        </button>
+                                        : ''
+                                    }
+                                </div>
                                 <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 above-md:grid-cols-3 lg:grid-cols-3 xl:gap-x-8">
                                     {
                                         products.length > 0 ? (

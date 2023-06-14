@@ -65,6 +65,11 @@ const ProcessOrder = () => {
                     order && (
                         <Grid container spacing={4}>
                             <Grid item xs={12} md={8}>
+                                <div className='flex gap-3'>
+                                    <Typography>Date: {order.createdAt.slice(0, 10)}</Typography>
+                                    <Typography>Time: {order.createdAt.slice(11, 16)}</Typography>
+                                </div>
+                                <Typography variant='h3' marginBottom='5px'>Order# {order._id}</Typography>
                                 <Box mb='15px' sx={{ '& > div': { marginLeft: '10px' } }}>
                                     <Typography variant='h3' marginBottom='5px'>Shipping Info</Typography>
                                     <Box display='flex' gap='8px'>
@@ -106,7 +111,29 @@ const ProcessOrder = () => {
                                 </Box>
                                 <Box mb='15px' sx={{ '& > div': { marginLeft: '10px' } }}>
                                     <Typography variant='h3' marginBottom='10px'>Order Items</Typography>
-                                    <Box display='flex' flexDirection='column' gap='15px'>
+                                    <div className='mt-3 flex flex-col pt-4'>
+                                        {order.orderItems.map((item) => {
+                                            return <div className="flex justify-between items-center border-t border-gray-200 py-6 last:border-b  last:border-gray-200 px-4" key={item.product}>
+                                                <div className='flex gap-3 items-center'>
+                                                    <div className="aspect-w-1 min-w-[96px] md:min-w-[112px] overflow-hidden rounded-sm h-28 md:h-32 cursor-pointer bg-gray-200">
+                                                        <img
+                                                            src={item.color || item.image}
+                                                            alt='product colors preview'
+                                                            className="h-full w-full object-contain object-center"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <NavLink to={`/product/${item.product}`} className='text-lg font-semibold'>{item.name}</NavLink>
+                                                        {item.size && <p>Size: {item.size}</p>}
+                                                    </div>
+                                                </div>
+                                                <p>
+                                                    ${item.price} * {item.quantity} = ${item.price * item.quantity}
+                                                </p>
+                                            </div>
+                                        })}
+                                    </div>
+                                    {/* <Box display='flex' flexDirection='column' gap='15px'>
                                         {order.orderItems.map((item) => {
                                             return (
                                                 <Box key={item.product} display='flex' justifyContent='space-between' padding='10px 20px 10px 10px' alignItems='center' boxShadow={`0 0 5px -1px ${colors.grey[100]}`} borderRadius='5px'>
@@ -127,10 +154,10 @@ const ProcessOrder = () => {
                                                 </Box>
                                             );
                                         })}
-                                    </Box>
+                                    </Box> */}
                                 </Box>
                             </Grid>
-                            <Grid item xs={12} md={4} sx={{ '& button:disabled': { opacity: '0.9' } }}>
+                            <Grid item xs={12} md={4}>
                                 <Typography variant='h3' mb='20px'>Process Order</Typography>
                                 <Formik
                                     onSubmit={handleFormSubmit}
@@ -165,9 +192,14 @@ const ProcessOrder = () => {
                                                 </Select>
                                                 <FormHelperText>{touched.status && errors.status}</FormHelperText>
                                             </FormControl>
-                                            <Button type='submit' color='secondary' variant='contained' disabled={updateOrderLoading || order.orderStatus === 'Delivered'} sx={{ marginTop: '20px', width: '100%' }}>
+                                            <button type='submit' disabled={updateOrderLoading || order.orderStatus === 'Delivered'}
+                                                className='mt-5 w-full h-11 flex justify-center items-center rounded-md bg-gradient-to-tr from-pink-500 to-violet-500  hover:from-pink-600 hover:to-violet-600 cursor-pointer px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 disabled:opacity-60'
+                                            >
+                                                Update Status
+                                            </button>
+                                            {/* <Button type='submit' color='secondary' variant='contained' disabled={updateOrderLoading || order.orderStatus === 'Delivered'} sx={{ marginTop: '20px', width: '100%' }}>
                                                 Updat Status
-                                            </Button>
+                                            </Button> */}
                                         </Form>
                                     )}
                                 </Formik>

@@ -49,8 +49,8 @@ const Cart = () => {
     return (
         <>
             {cartItems.length == 0 ?
-                <div className='w-[90%] h-[50vh] mx-auto flex flex-col justify-center items-center gap-4'>
-                    <RemoveShoppingCartIcon className='text-4xl text-orange-500' />
+                <div className='w-[90%] h-[60vh] mx-auto flex flex-col justify-center items-center gap-4 pt-10'>
+                    <RemoveShoppingCartIcon className='text-4xl text-orange-500' style={{fontSize: '40px'}} />
                     <h2>No Product in Your Cart</h2>
                     <NavLink to='/products' className='bg-gray-600 text-white border-none outline-0 py-4 px-5'>View Products</NavLink>
                 </div>
@@ -64,21 +64,22 @@ const Cart = () => {
                                 return (
                                     <div className="flex justify-between border-t border-gray-200 py-6 last:border-b  last:border-gray-200" key={item.product}>
                                         <div className='flex'>
-                                            <div className="aspect-w-1 min-w-[96px] md:min-w-[112px] overflow-hidden rounded-sm h-28 md:h-32 cursor-pointer">
+                                            <div className="aspect-w-1 min-w-[96px] md:min-w-[112px] overflow-hidden rounded-sm h-28 md:h-32 cursor-pointer bg-gray-200">
                                                 <img
                                                     src={item.color || item.image}
                                                     alt='product colors preview'
-                                                    className="h-full w-full object-cover object-center"
+                                                    className="h-full w-full object-contain object-center"
                                                 />
                                             </div>
                                             <div className='flex flex-col justify-between pl-3'>
                                                 <div>
-                                                    <h3 className='text-lg font-semibold'>{item.name}</h3>
+                                                    <NavLink to={`/product/${item.product}`} className='text-lg font-semibold hover:underline'>{item.name}</NavLink>
+                                                    {/* <h3 className='text-lg font-semibold'>{item.name}</h3> */}
                                                     {item.size && <p>Size: {item.size}</p>}
                                                 </div>
-                                                <h4 className='text-lg font-semibold'>
-                                                    <span>${item.price}.00 * {item.quantity} = </span>
-                                                    <span className=' text-orange-500'>${item.price * item.quantity}.00</span>
+                                                <h4 className='text-base font-semibold'>
+                                                    <span><small>Rs.</small> {item.price}.00 * {item.quantity} = </span>
+                                                    <span className=' text-orange-500'>{item.price * item.quantity}.00</span>
                                                 </h4>
                                             </div>
                                         </div>
@@ -106,7 +107,7 @@ const Cart = () => {
                             <h3 className='font-bold'>Cart Summary</h3>
                             <div className='flex justify-between border-b border-gray-300 pb-3'>
                                 <h4>Total Price :</h4>
-                                <h3>{`$${cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0)}`}</h3>
+                                <h3>{`Rs. ${cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0)}`}</h3>
                             </div>
                             <button className='bg-gradient-to-tr from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600 rounded-md text-white py-3 font-semibold' onClick={checkoutHandler}>Check Out</button>
                         </div>

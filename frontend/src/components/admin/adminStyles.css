@@ -46,6 +46,32 @@ body,
   background: #555;
 }
 
+/* loader spinner */
+.custom-loader {
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  border:6px solid;
+  border-color:#E4E4ED;
+  border-right-color: #766DF4;
+  animation:s2 1s infinite linear;
+  margin-right: 10px;
+}
+@keyframes s2 {to{transform: rotate(1turn)}}
+
+/* loader spinner small */
+.custom-loader-small {
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  border:5px solid;
+  border-color:#E4E4ED;
+  border-right-color: #766DF4;
+  animation:s3 1s infinite linear;
+  /* margin-right: 10px; */
+}
+@keyframes s3 {to{transform: rotate(1turn)}}
+
 
 /* .ps-menu-button{
   color: #e0e0e0 !important;

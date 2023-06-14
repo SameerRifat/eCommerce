@@ -116,7 +116,7 @@ const Shipping = () => {
           }) => (
             <Form onSubmit={handleSubmit}>
               <div className='text-center mb-5'>
-                <h2 className='p-1.5 border-b-2 border-gray-300 inline-block'>Shipping Details</h2>
+                <h2 className='p-1.5 border-b-2 border-gray-300 inline-block font-semibold'>Shipping Details</h2>
               </div>
               <div className='grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6'>
                 <div className="col-span-full">

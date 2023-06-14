@@ -5,6 +5,7 @@ import { fetchProducts } from '../../features/product/productSlice'
 import Loader from '../Loader'
 import { useAlert } from 'react-alert'
 import ProductCard from './ProductCard'
+import { NavLink } from 'react-router-dom'
 
 // const productsArray = [
 //   {
@@ -111,6 +112,11 @@ const ProductsList = () => {
                 <p className='text-center'>No Product Found</p>
               }
             </div>
+            <NavLink to='/products'
+              className='block text-right text-orange-500 text-sm font-semibold mt-10 hover:underline cursor-pointer'
+            >
+              See all products
+            </NavLink>
           </div>
         </div>
       }

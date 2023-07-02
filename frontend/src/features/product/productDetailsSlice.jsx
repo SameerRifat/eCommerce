@@ -4,6 +4,7 @@ import axios from 'axios'
 const initialState = {
     loading: true,
     product: {},
+    relatedProducts: [],
     error: ''
 }
 
@@ -27,6 +28,7 @@ const productDetailsSlice = createSlice({
         builder.addCase(fetchProductDetails.fulfilled, (state, action)=>{
             state.loading = false
             state.product = action.payload.product
+            state.relatedProducts = action.payload.relatedProducts
         })
         builder.addCase(fetchProductDetails.rejected, (state, action)=>{
             state.loading = false

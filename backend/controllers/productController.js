@@ -223,10 +223,15 @@ exports.getProductDetails = catchAsyncErrors(async (req, res, next)=>{
     if(!product){
         return next(new ErrorHandler("Product not found", 404))
     }
+    let relatedProducts = await Product.find({
+        category: product.category,
+        _id: {$ne: product._id}
+    })
 
     res.status(200).json({
         success: true,
         product,
+        relatedProducts
     })
 })
 // create new review or update the review

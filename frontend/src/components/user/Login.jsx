@@ -41,7 +41,7 @@ const Login = () => {
         if (isAuthenticated) {
             navigate(redirect)
         }
-        if (error) {
+        if (error && error !== 'Please login to access this resourse') {
             alert.error(error)
             dispatch(clear_errors());
         }

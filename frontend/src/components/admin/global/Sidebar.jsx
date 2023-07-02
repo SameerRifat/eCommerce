@@ -69,7 +69,6 @@ const Sidebar = () => {
       window.removeEventListener('resize', getSize)
     }
   }, [window.innerWidth])
-  console.log(width)
   return (
     <ProSidebar defaultCollapsed={isCollapsed}  backgroundColor={colors.primary[400]} >
       <Menu>
@@ -125,6 +124,13 @@ const Sidebar = () => {
             selected={selected}
             setSelected={setSelected}
           />
+          <Item
+            title="Support"
+            to="/admin/support"
+            icon={<SupportAgentIcon />}
+            selected={selected}
+            setSelected={setSelected}
+          />
           <Typography variant='h6' color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}> Charts </Typography>
           <Item
             title="Bar Chart"
@@ -144,13 +150,6 @@ const Sidebar = () => {
             title="Line Chart"
             to="/admin/line"
             icon={<TimelineOutlinedIcon />}
-            selected={selected}
-            setSelected={setSelected}
-          />
-          <Item
-            title="Support"
-            to="/admin/support"
-            icon={<SupportAgentIcon />}
             selected={selected}
             setSelected={setSelected}
           />

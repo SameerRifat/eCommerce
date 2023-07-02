@@ -45,6 +45,7 @@ import Bar from './components/admin/chartScenes/Bar'
 import ChatBox from './components/ChatBox'
 import { useSelector } from 'react-redux'
 import SupportScreen from './components/admin/SupportScreen'
+import NotFound from './components/NotFound'
 
 const App = () => {
   const { pathname } = useLocation();
@@ -106,6 +107,7 @@ const App = () => {
           <Route path='/admin/bar' element={<ProtectedRoute isAdmin={true}><Bar /></ProtectedRoute>} />
           <Route path='/admin/support' element={<ProtectedRoute isAdmin={true}><SupportScreen /></ProtectedRoute>} />
         </Route>
+        <Route path='*' element={<NotFound />}></Route>
       </Routes>
       {!loading && user && user.role !== 'admin' && <ChatBox userInfo={user} />}
       {showHeaderAndFooter && <Footer />}

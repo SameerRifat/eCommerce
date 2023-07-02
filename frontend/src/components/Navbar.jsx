@@ -79,7 +79,7 @@ const Navbar = () => {
                                     ))}
                                 </div>
                                 <div className="py-6">
-                                    <NavLink to='/login' className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                                    <NavLink to='/login' onClick={() => setOpen(false)} className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                                         Log in
                                     </NavLink>
                                 </div>
@@ -92,7 +92,7 @@ const Navbar = () => {
                 <header className="absolute w-full z-20 bg-transparent">
                     <nav aria-label="Top" className="mx-auto w-[96%] md:w-[90%] px-2">
                         {/* border-b border-gray-200 */}
-                        <div className="flex h-16 items-center ">
+                        <div className="flex h-16 items-center">
                             <button
                                 type="button"
                                 className="rounded-md bg-white p-2 text-gray-400 lg:hidden"
@@ -147,14 +147,14 @@ const Navbar = () => {
                                 <form onSubmit={handleSubmit} className='flex flex-1 max-w-lg mx-2 md:mx-[60px] rounded-md h-10'>
                                     <InputBase
                                         fullWidth
-                                        className='bg-white bg-opacity-70 h-10 pl-4 shadow-[0_0px_15px_-4px_rgba(0,0,0,0.3)] rounded-md'
+                                        className='bg-white bg-opacity-70 h-9 sm:h-10 pl-4 shadow-[0_0px_15px_-4px_rgba(0,0,0,0.3)] rounded-md text-sm'
                                         type='text'
                                         placeholder='Search...'
                                         value={keyword}
                                         onChange={(e) => setKeyword(e.target.value)}
                                         endAdornment={
                                             <InputAdornment position="end">
-                                                <button type='submit' className='bg-gradient-to-tr from-pink-500 to-violet-500 text-white h-10 w-10 md:w-12 flex justify-center items-center rounded-r-md'>
+                                                <button type='submit' className='bg-gradient-to-tr from-pink-500 to-violet-500 text-white h-9 w-9 sm:h-10 sm:w-10 md:w-12 flex justify-center items-center rounded-r-md'>
                                                     <SearchIcon />
                                                 </button>
                                             </InputAdornment>

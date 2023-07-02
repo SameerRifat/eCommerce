@@ -130,7 +130,7 @@ const SupportScreen = () => {
 
     return (
         <div className='grid grid-cols-6 h-[80vh] mt-5 p-5'>
-            <div className='col-span-2 h-full p-1' style={{ background: colors.grey[100] }}>
+            <div className='col-span-2 h-full p-1 border-4 rounded-l-md' style={{ background: colors.grey[100] }}>
                 {users.length !== 0 && users.filter((x) => x._id !== userInfo._id).length === 0 && (
                     <p className='font-semibold p-2 rounded-md'
                         style={{
@@ -178,7 +178,7 @@ const SupportScreen = () => {
                     {/* </ul> */}
                 </Box>
             </div>
-            <div className='col-span-4 p-1 h-full' style={{ backgroundColor: colors.grey[50] }}>
+            <div className='col-span-4 p-1 h-full rounded-r-md' style={{ backgroundColor: colors.grey[50] }}>
                 {Object.keys(selectedUser).length === 0 && !selectedUser._id ? (
                     <p style={{ backgroundColor: colors.blueAccent[700] }}
                         className='h-9 flex items-center px-2 rounded-md'
@@ -195,8 +195,8 @@ const SupportScreen = () => {
                                 Chat with {selectedUser.name}
                             </strong>
                         </div>
-                        <div className='overflow-y-scroll'>
-                            <ul ref={uiMessageRef} className='h-[calc(80vh-128px)] p-2'>
+                        <div ref={uiMessageRef} className='overflow-y-scroll'>
+                            <ul className='h-[calc(80vh-128px)] p-2'>
                                 {messages.length === 0 && <li style={{ color: colors.grey[600] }}>No message</li>}
                                 {messages.map((msg, ind) => {
                                     return (

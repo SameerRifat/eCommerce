@@ -68,7 +68,7 @@ const ChatBox = ({ userInfo }) => {
     return (
         <>
             {!isOpen ? (
-                <button onClick={supportHandler} className='w-12 h-12 fixed bottom-4 right-4 rounded-full hover:bg-gray-200'>
+                <button onClick={supportHandler} className='w-12 h-12 fixed bottom-4 right-5 rounded-full hover:bg-gray-200'>
                     <ChatIcon />
                 </button>
             ) : (

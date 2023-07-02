@@ -38,8 +38,7 @@ const Profile = () => {
                                 </div>
                                 <div>
                                     <h3 className='text-lg font-bold'>Joined On</h3>
-                                    {/* <p>{String(user.createdAt).substring(0,10)}</p> */}
-                                    <p className=''>10-2-2023</p>
+                                    <p>{user.createdAt.slice(0,10)}</p>
                                 </div>
                                 <div className='flex flex-col gap-5'>
                                     <NavLink to="/orders" className='bg-gray-400 hover:bg-gray-500 max-w-xs p-3 text-center text-white font-bold shadow-lg'>My Orders</NavLink>

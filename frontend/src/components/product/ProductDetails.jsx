@@ -13,6 +13,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../Loader';
 import { addItemsToCart } from '../../features/cart/cartSlice';
+import ProductCard from './ProductCard';
 
 // const product = {
 //     name: 'Basic Tee 6-Pack ',
@@ -108,7 +109,7 @@ const ProductDetails = () => {
     const alert = useAlert();
     const { id } = useParams();
     const dispatch = useDispatch();
-    const { loading, product, error } = useSelector(state => state.productDetails)
+    const { loading, product, relatedProducts, error } = useSelector(state => state.productDetails)
     const { user } = useSelector((state) => state.user)
     const [quantity, setQuantity] = useState(1)
     const [mainImage, setMainImage] = useState({})
@@ -438,6 +439,19 @@ const ProductDetails = () => {
                             })}
                         </div>
                     </section>
+                    {relatedProducts.length > 0 && (
+                        <section className="bg-gray-50">
+                            <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+                                <h2 className="text-2xl font-bold tracking-tight text-gray-900">You May Also Like</h2>
+
+                                <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                                    {relatedProducts.map((product) => {
+                                        return <ProductCard key={product._id} product={product} />
+                                    })}
+                                </div>
+                            </div>
+                        </section>
+                    )}
                 </>
             }
         </>

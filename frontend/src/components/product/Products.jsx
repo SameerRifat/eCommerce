@@ -174,8 +174,6 @@ const Products = () => {
         // console.log(data)
         dispatch(fetchProducts(data))
     }, [dispatch, error, productCount, keyword, currentPage, price, category, ratings, order])
-    console.log(category !== '' || ratings !== 0 || price[0] !== 0 || price[1] !== 25000)
-    console.log(ratings)
     return (
         <div className="bg-gray-50 pt-10 min-h-screen">
             <div>
@@ -363,7 +361,7 @@ const Products = () => {
                     </Dialog>
                 </Transition.Root>
 
-                <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <main className="w-[96%] md:w-[94%] lg:w-[90%] mx-auto">
                     <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
                         <h1 className="text-lg md:text-3xl lg:text-4xl font-semibold md:font-bold tracking-tight text-gray-900">New Arrivals</h1>
 
@@ -623,7 +621,7 @@ const Products = () => {
                                         : ''
                                     }
                                 </div>
-                                <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 above-md:grid-cols-3 lg:grid-cols-3 xl:gap-x-8">
+                                <div className="mt-6 grid gap-x-4 sm:gap-x-6 gap-y-6 sm:gap-y-10 grid-cols-2 above-md:grid-cols-3 lg:grid-cols-3 xl:gap-x-8">
                                     {
                                         products.length > 0 ? (
                                             products.map((product) => {

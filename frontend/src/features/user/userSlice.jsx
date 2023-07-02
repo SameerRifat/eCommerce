@@ -5,10 +5,11 @@ const initialState = {
     loading: true,
     isAuthenticated: false,
     user: {},
-    error: ''
+    error: null
 }
 // login
 export const login = createAsyncThunk('user/login', async (data) => {
+    console.log("login called")
     const config = { headers: { 'Content-Type': 'application/json' }, withCredentials: true };
     try {
         const response = await axios.post("/api/v1/login", data, config);
@@ -104,6 +105,7 @@ const userSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(login.pending, (state, action) => {
             state.loading = true
+            // state.error = ''
         })
         builder.addCase(login.fulfilled, (state, action) => {
             state.loading = false

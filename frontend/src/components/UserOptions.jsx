@@ -3,7 +3,7 @@ import { Menu, Transition } from '@headlessui/react'
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import PersonIcon from '@mui/icons-material/Person';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,7 +21,7 @@ const UserOptions = ({ user }) => {
     const options = [
         { icon: <ListAltIcon style={{ color: 'gray' }} />, name: "Orders", func: orders },
         { icon: <PersonIcon style={{ color: 'gray' }} />, name: "Profile", func: account },
-        { icon: <ExitToAppIcon style={{ color: 'gray' }} />, name: "Logout", func: logoutUser },
+        { icon: <LogoutIcon style={{ color: 'gray' }} />, name: "Logout", func: logoutUser },
     ]
     if (user && user.role === "admin") {
         options.unshift({ icon: <DashboardIcon style={{ color: 'gray' }} />, name: "Dashboard", func: dashboard })

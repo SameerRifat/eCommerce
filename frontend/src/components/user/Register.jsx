@@ -220,7 +220,7 @@ const Register = () => {
                                     <div>
                                         <button
                                             type="submit"
-                                            className="flex w-full justify-center rounded-md bg-gradient-to-tr from-pink-500 to-violet-500 hover:from-purple-600 hover:to-violet-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                            className="flex w-full justify-center rounded-md bg-gradient-to-tr from-pink-500 to-violet-500 hover:from-pink-600-600 hover:to-violet-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:shadow-md"
                                         >
                                             Register
                                         </button>
@@ -228,12 +228,12 @@ const Register = () => {
                                 </Form>
                             )}
                         </Formik>
-                        {/* <p className="mt-10 text-center text-sm text-gray-500">
-                        Not have an account?{' '}
-                        <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                            Create account
-                        </a>
-                    </p> */}
+                        <p className="mt-3 text-center text-sm text-gray-500">
+                            Already have an account?{' '}
+                            <NavLink to="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                                Login
+                            </NavLink>
+                        </p>
                     </div>
                 </div>
             </div>

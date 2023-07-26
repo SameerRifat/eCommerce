@@ -660,7 +660,7 @@ const Products = () => {
                 </main>
             </div>
             {resultPerPage < filteredProductsCount &&
-                <div className="pagination-container pb-10">
+                <div className="pagination-container pb-13">
                     <Pagination
                         activePage={currentPage}
                         itemsCountPerPage={resultPerPage}

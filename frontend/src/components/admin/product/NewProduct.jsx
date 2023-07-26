@@ -12,7 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import { getAllCategories } from '../../../features/product/categoriesSlice';
 
 // const categories = ["Laptop", "SmartPhone", "Camera", "Footwear", "Shirts", "Pants"];
-const sizesArray = ["XXS", "XS", "S", "M", "L", "XL", "XXL"];
+// const sizesArray = ["XXS", "XS", "S", "M", "L", "XL", "XXL"];
+const sizesArray = ["XXS", "XS", "S", "M", "L", "XL", "XXL","28W x 28L", "28W x 30L", "29W x 28L", "29W x 30L", "30W x 28L", "30W x 30L", "31W x 28L", "31W x 30L", "32W x 28L", "32W x 30L", "33W x 28L", "33W x 30L", "34W x 28L", "34W x 30L"  ];
 const initialValues = {
     name: "",
     description: "",
@@ -85,7 +86,6 @@ const NewProduct = () => {
         myForm.set("category", value)
         myForm.set("stock", stock)
         if (sizes.length > 0) {
-            console.log(sizes)
             // myForm.set("sizes", sizes)
             const sizesObjectsArray = sizes.map(size => ({ size }));
             myForm.set("sizes", JSON.stringify(sizesObjectsArray))
@@ -287,7 +287,7 @@ const NewProduct = () => {
                                                     <img
                                                         src={image}
                                                         alt='product colors preview'
-                                                        className="h-full w-full object-cover object-center"
+                                                        className="h-full w-full object-contain object-center"
                                                     />
                                                 </div>
                                             ))
@@ -325,7 +325,7 @@ const NewProduct = () => {
                                                     <img
                                                         src={image}
                                                         alt='product colors preview'
-                                                        className="h-full w-full object-cover object-center"
+                                                        className="h-full w-full object-contain object-center"
                                                     />
                                                 </div>
                                             ))

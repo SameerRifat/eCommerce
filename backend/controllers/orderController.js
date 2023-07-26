@@ -229,6 +229,7 @@ exports.ordersSummary = catchAsyncErrors(async (req, res, next)=>{
 
     const recentTransactions = await Order.find().sort({ createdAt: -1 }).limit(10).select('_id createdAt totalPrice').populate('user', 'name');
 
+    const numOfProducts = totalProducts.length > 0 ? totalProducts[0].numOfProducts : 0;
 
     res.status(201).json({
         success: true,
@@ -242,7 +243,7 @@ exports.ordersSummary = catchAsyncErrors(async (req, res, next)=>{
         salesLast12Months,
         allOrders,
         allUsers,
-        numOfProducts: totalProducts[0].numOfProducts,
+        numOfProducts,
         productCategories,
         recentTransactions
     })

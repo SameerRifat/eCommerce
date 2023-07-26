@@ -92,6 +92,15 @@ const ProductsList = () => {
       flex: 0.7
     },
     {
+      field: 'ratings',
+      headerName: 'Ratings',
+      type: 'number',
+      headerAlign: 'left',
+      align: 'left',
+      minWidth: 100,
+      flex: 0.7
+    },
+    {
       field: 'actions',
       headerName: 'Actions',
       sortable: false,
@@ -122,6 +131,7 @@ const ProductsList = () => {
       name: item.name,
       stock: item.stock,
       price: item.price,
+      ratings: item.ratings,
     })
   });
 

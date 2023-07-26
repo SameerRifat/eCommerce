@@ -90,7 +90,7 @@ const Navbar = () => {
 
                 {/* <header className="relative bg-no-repeat bg-cover bg-[url('/images/bg-img7.svg')]"> */}
                 <header className="absolute w-full z-20 bg-transparent">
-                    <nav aria-label="Top" className="mx-auto w-[96%] md:w-[90%] px-2">
+                    <nav aria-label="Top" className="mx-auto w-[96%] md:w-[94%] lg:w-[90%] pr-1.5 md:px-2">
                         {/* border-b border-gray-200 */}
                         <div className="flex h-16 items-center">
                             <button
@@ -191,7 +191,7 @@ const Navbar = () => {
                                     </NavLink>
                                 </div>
                                 {isAuthenticated &&
-                                    <div>
+                                    <div className='ml-2 md:ml-10'>
                                         <UserOptions user={user} />
                                     </div>
                                 }

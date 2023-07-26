@@ -47,7 +47,7 @@ const createProductSlice = createSlice({
         builder.addCase(createProduct.fulfilled, (state, action)=>{
             state.loading = false
             state.success = action.payload.success
-            state.user = action.payload.product
+            state.product = action.payload.product
         })
         builder.addCase(createProduct.rejected, (state, action)=>{
             state.loading = false

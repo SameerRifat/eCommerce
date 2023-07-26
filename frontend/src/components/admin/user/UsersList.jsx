@@ -1,8 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { tokens } from '../../../theme'
-import { Box, IconButton, useTheme } from '@mui/material'
+import { Box, IconButton, useTheme, Typography } from '@mui/material'
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import AdminHeader from '../AdminHeader'
@@ -19,9 +24,20 @@ const UsersList = () => {
     const dispatch = useDispatch()
     const { loading, error, users } = useSelector((state) => state.users)
     const { error: deleteError, isDeleted } = useSelector((state) => state.deleteUser)
+
+    const [open, setOpen] = useState(false);
+    const [UserIdToDelete, setUserIdToDelete] = useState('');
+    const handleClickOpen = (id) => {
+        setUserIdToDelete(id);
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
     const deleteUserHandler = (id) => {
         dispatch(deleteUser(id))
     }
+
     useEffect(() => {
         dispatch(getAllUsers())
     }, [])
@@ -35,6 +51,8 @@ const UsersList = () => {
             dispatch(clearErrors());
         }
         if (isDeleted) {
+            setUserIdToDelete('')
+            setOpen(false)
             alert.success("User Deleted Successfully");
             dispatch(deleteUserReset());
         }
@@ -86,7 +104,7 @@ const UsersList = () => {
                         <NavLink to={`/admin/user/${id}`}>
                             <IconButton><EditOutlinedIcon style={{ color: colors.blueAccent[500] }} /></IconButton>
                         </NavLink>
-                        <IconButton onClick={() => deleteUserHandler(id)}>
+                        <IconButton onClick={() => handleClickOpen(id)}>
                             <DeleteOutlineOutlinedIcon style={{ color: colors.redAccent[500] }} />
                         </IconButton>
                     </>
@@ -97,12 +115,14 @@ const UsersList = () => {
 
     const rows = []
     users && users.forEach((item, index) => {
-        rows.push({
-            id: item._id,
-            name: item.name,
-            email: item.email,
-            role: item.role,
-        })
+        if(item.email !== "sameer123@gmail.com"){
+            rows.push({
+                id: item._id,
+                name: item.name,
+                email: item.email,
+                role: item.role,
+            })
+        }
     });
 
     return (
@@ -147,6 +167,44 @@ const UsersList = () => {
                             toolbar: GridToolbar
                         }}
                     />
+                    <Dialog open={open} onClose={handleClose}
+                        sx={{
+                            '& .MuiPaper-root': {
+                                width: '450px'
+                            },
+                            '& .MuiDialogTitle-root': {
+                                padding: '15px 10px',
+                                background: '#F8F9FA',
+                                color: 'black'
+                            },
+                            '& .MuiDialogContent-root': {
+                                padding: '25px 10px',
+                                background: 'white',
+                                color: 'black',
+                                borderBottom: '1px solid lightGray'
+                            },
+                            '& .MuiDialogActions-root': {
+                                padding: '12px 10px',
+                                background: 'white',
+                            }
+                        }}
+                    >
+                        <DialogTitle className='flex justify-between'>
+                            <p className='font-semibold text-base text-gray-500'>Delete Assets</p>
+                            <button onClick={handleClose}>
+                                <CloseIcon />
+                            </button>
+                        </DialogTitle>
+                        <DialogContent>
+                            <Typography>Are you sure you want to delete the seleted asset?</Typography>
+                        </DialogContent>
+                        <DialogActions>
+                            <button onClick={handleClose} className='font-semibold w-20 h-10 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-sm flex justify-center items-center shadow-sm'>Cancel</button>
+                            <button onClick={() => deleteUserHandler(UserIdToDelete)} className='font-semibold w-20 h-10 bg-red-600 hover:bg-red-700 text-white rounded-sm flex justify-center items-center shadow-sm'>
+                                {loading ? <> <div class="custom-loader-small"></div> </> : "Delete"}
+                            </button>
+                        </DialogActions>
+                    </Dialog>
                 </Box>
             </Box>
         </>

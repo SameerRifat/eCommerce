@@ -38,9 +38,20 @@ const Payment = () => {
         e.preventDefault();
         payBtn.current.disabled = true;
         payBtn.current.opacity = 0.5;
-        const config = { headers: { 'Content-Type': 'application/json' } };
+        // const config = { headers: { 'Content-Type': 'application/json' } };
+        const token = JSON.parse(localStorage.getItem('token'));
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
+            },
+        };
         try {
-            const { data } = await axios.post("/api/v1/payment/process", paymentData, config);
+            const { data } = await axios.post(
+                "/api/v1/payment/process",
+                paymentData,
+                config
+            );
             const client_secret = data.client_secret;
             if (!stripe || !elements) return;
             const result = await stripe.confirmCardPayment(client_secret, {
@@ -103,13 +114,13 @@ const Payment = () => {
         <>
             <div className='pt-24 pb-10'>
                 <MetaData title="Payment" />
-                <div className="w-[90%] lg:w-[80%] mx-auto">
+                <div className="w-[94%] lg:w-[90%] mx-auto">
                     <CheckoutSteps activeStep={2} />
                     <div className="w-full sm:w-[400px] mx-auto">
                         <div className='text-center'>
                             <h2 className='text-xl font-bold border-b border-gray-400 pb-1 inline-block mb-5'>Card Info</h2>
                         </div>
-                        <form className='form' onClick={submitHandler}>
+                        <form onSubmit={submitHandler}>
                             <div className='mt-5 flex items-center'>
                                 <CreditCardIcon style={{ position: 'absolute', transform: 'translateX(10px)', fontSize: '18px', color: 'rgba(0,0,0,0.6)' }} />
                                 <CardNumberElement className='w-full border border-gray-500 rounded py-3 px-10' />

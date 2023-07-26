@@ -153,7 +153,7 @@ const SupportScreen = () => {
                         return (
                             <li
                                 key={user._id}
-                                className='listStyle font-semibold rounded-md'
+                                className='listStyle font-semibold rounded-md mb-1'
                                 style={{
                                     backgroundColor: colors.grey[200],
                                     color: colors.grey[800]

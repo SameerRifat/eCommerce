@@ -337,7 +337,7 @@ const UpdateProduct = () => {
                               <img
                                 src={image}
                                 alt='product images preview'
-                                className="h-full w-full object-cover object-center"
+                                className="h-full w-full object-contain object-center"
                               />
                             </div>
                           ))
@@ -347,7 +347,7 @@ const UpdateProduct = () => {
                               <img
                                 src={image.url}
                                 alt='product images preview'
-                                className="h-full w-full object-cover object-center"
+                                className="h-full w-full object-contain object-center"
                               />
                             </div>
                           ))
@@ -386,7 +386,7 @@ const UpdateProduct = () => {
                                   <img
                                     src={image}
                                     alt='product colors preview'
-                                    className="h-full w-full object-cover object-center"
+                                    className="h-full w-full object-contain object-center"
                                   />
                                 </div>
                               ))
@@ -396,7 +396,7 @@ const UpdateProduct = () => {
                                   <img
                                     src={image.url}
                                     alt='product images preview'
-                                    className="h-full w-full object-cover object-center"
+                                    className="h-full w-full object-contain object-center"
                                   />
                                 </div>
                               ))
@@ -426,92 +426,6 @@ const UpdateProduct = () => {
                         </Grid>
                       </>
                     }
-                    {/* <Grid
-                      item
-                      sm={12}
-                      sx={{
-                        "& #product-images": {
-                          width: "100%",
-                          overflow: "auto",
-                        },
-                        "& #product-images > img": {
-                          border: `2px solid ${colors.grey[100]}`,
-                          borderRadius: "10px",
-                          width: "100px",
-                          height: "100px",
-                          objectFit: "contain",
-                          mr: "10px",
-                        },
-                      }}
-                    >
-                      <Box
-                        id="product-images"
-                        display="flex"
-                        padding="10px 10px 10px 0"
-                      >
-                        {oldImages &&
-                          oldImages.map((image, ind) => (
-                            <img
-                              key={ind}
-                              src={image.url}
-                              alt="Avatar Preview"
-                            />
-                          ))}
-                      </Box>
-                    </Grid>
-                    <Grid
-                      item
-                      sm={12}
-                      lg={9}
-                      sx={{
-                        "& #product-images": {
-                          width: "100%",
-                          overflow: "auto",
-                        },
-                        "& #product-images > img": {
-                          border: `2px solid ${colors.grey[100]}`,
-                          borderRadius: "10px",
-                          width: "100px",
-                          height: "100px",
-                          objectFit: "contain",
-                          mr: "10px",
-                        },
-                      }}
-                    >
-                      <Box id="product-images" display="flex" padding="10px">
-                        {imagesPreview.map((image, ind) => (
-                          <img key={ind} src={image} alt="Avatar Preview" />
-                        ))}
-                      </Box>
-                    </Grid>
-                    <Grid item sm={12} lg={3}>
-                      <Box
-                        id="product-images"
-                        sx={{
-                          "& input::-webkit-file-upload-button": {
-                            cursor: "pointer",
-                            width: "100%",
-                            border: "none",
-                            height: "33px",
-                            zIndex: 2,
-                            padding: "0 10px",
-                            backgroundColor: colors.grey[200],
-                            transition: "all 0.4s",
-                          },
-                          "& input::-webkit-file-upload-button:hover": {
-                            backgroundColor: colors.grey[400],
-                          },
-                        }}
-                      >
-                        <input
-                          type="file"
-                          name="images"
-                          accept="image/*"
-                          multiple
-                          onChange={imageChangeEvent}
-                        />
-                      </Box>
-                    </Grid> */}
                   </Grid>
                   <Box
                     display="flex"

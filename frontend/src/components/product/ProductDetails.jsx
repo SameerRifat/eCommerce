@@ -15,53 +15,6 @@ import Loader from '../Loader';
 import { addItemsToCart } from '../../features/cart/cartSlice';
 import ProductCard from './ProductCard';
 
-// const product = {
-//     name: 'Basic Tee 6-Pack ',
-//     price: '$192',
-//     rating: 3.9,
-//     reviewCount: 117,
-//     href: '#',
-//     stock: 5,
-//     descrption: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque non modi odio minima commodi porro ipsum illum pariatur ullam repudiandae!',
-//     images: [
-//         {
-//             id: 1,
-//             url: 'https://tailwindui.com/img/ecommerce-images/product-quick-preview-02-detail.jpg'
-//         },
-//         {
-//             id: 2,
-//             url: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg'
-//         },
-//         {
-//             id: 3,
-//             url: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg'
-//         },
-//         {
-//             id: 4,
-//             url: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg'
-//         },
-//         {
-//             id: 5,
-//             url: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg'
-//         }
-//     ],
-//     colors: [
-//         { name: 'White', class: 'bg-white', hex: '#fff', selectedClass: 'ring-gray-400' },
-//         { name: 'Gray', class: 'bg-gray-200', hex: '#E5E7EB', selectedClass: 'ring-gray-400' },
-//         { name: 'Black', class: 'bg-gray-900', hex: '#111827', selectedClass: 'ring-gray-900' },
-//     ],
-//     sizes: [
-//         { name: 'XXS', inStock: true },
-//         { name: 'XS', inStock: true },
-//         { name: 'S', inStock: true },
-//         { name: 'M', inStock: true },
-//         { name: 'L', inStock: true },
-//         { name: 'XL', inStock: true },
-//         { name: 'XXL', inStock: true },
-//         { name: 'XXXL', inStock: false },
-//     ],
-// }
-
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
@@ -300,87 +253,12 @@ const ProductDetails = () => {
                                                                             )}
                                                                             aria-hidden="true"
                                                                         />
-                                                                        {/* {size.inStock ? (
-                                                                <span
-                                                                    className={classNames(
-                                                                        active ? 'border' : 'border-2',
-                                                                        checked ? 'border-indigo-500' : 'border-transparent',
-                                                                        'pointer-events-none absolute -inset-px rounded-md'
-                                                                    )}
-                                                                    aria-hidden="true"
-                                                                />
-                                                            ) : (
-                                                                <span
-                                                                    aria-hidden="true"
-                                                                    className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
-                                                                >
-                                                                    <svg
-                                                                        className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
-                                                                        viewBox="0 0 100 100"
-                                                                        preserveAspectRatio="none"
-                                                                        stroke="currentColor"
-                                                                    >
-                                                                        <line x1={0} y1={100} x2={100} y2={0} vectorEffect="non-scaling-stroke" />
-                                                                    </svg>
-                                                                </span>
-                                                            )} */}
                                                                     </>
                                                                 )}
                                                             </RadioGroup.Option>
                                                         ))}
                                                     </div>
                                                 </RadioGroup>
-                                                {/* <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
-                                                    <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
-                                                    <div className="grid grid-cols-4 gap-4 md:gap-6">
-                                                        {product.sizes.map((size) => (
-                                                            <RadioGroup.Option
-                                                                key={size.name}
-                                                                value={size}
-                                                                disabled={!size.inStock}
-                                                                className={({ active }) =>
-                                                                    classNames(
-                                                                        size.inStock
-                                                                            ? 'cursor-pointer bg-white text-gray-900 shadow-sm'
-                                                                            : 'cursor-not-allowed bg-gray-50 text-gray-200',
-                                                                        active ? 'ring-2 ring-indigo-500' : '',
-                                                                        'group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1'
-                                                                    )
-                                                                }
-                                                            >
-                                                                {({ active, checked }) => (
-                                                                    <>
-                                                                        <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>
-                                                                        {size.inStock ? (
-                                                                            <span
-                                                                                className={classNames(
-                                                                                    active ? 'border' : 'border-2',
-                                                                                    checked ? 'border-indigo-500' : 'border-transparent',
-                                                                                    'pointer-events-none absolute -inset-px rounded-md'
-                                                                                )}
-                                                                                aria-hidden="true"
-                                                                            />
-                                                                        ) : (
-                                                                            <span
-                                                                                aria-hidden="true"
-                                                                                className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
-                                                                            >
-                                                                                <svg
-                                                                                    className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
-                                                                                    viewBox="0 0 100 100"
-                                                                                    preserveAspectRatio="none"
-                                                                                    stroke="currentColor"
-                                                                                >
-                                                                                    <line x1={0} y1={100} x2={100} y2={0} vectorEffect="non-scaling-stroke" />
-                                                                                </svg>
-                                                                            </span>
-                                                                        )}
-                                                                    </>
-                                                                )}
-                                                            </RadioGroup.Option>
-                                                        ))}
-                                                    </div>
-                                                </RadioGroup> */}
                                             </div>
                                         }
                                         <div className='my-5 flex items-center gap-7'>

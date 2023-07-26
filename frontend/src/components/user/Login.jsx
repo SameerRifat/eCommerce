@@ -164,9 +164,11 @@ const Login = () => {
                                     <div>
                                         <button
                                             type="submit"
-                                            className="flex w-full justify-center rounded-md bg-gradient-to-tr from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                            // className="flex w-full justify-center rounded-md bg-gradient-to-tr from-pink-500 to-violet-500 hover:from-pink-600-600 hover:to-violet-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:shadow-md"
+                                            className='w-full h-10 flex justify-center items-center rounded-md bg-gradient-to-tr from-pink-500 to-violet-500  hover:from-pink-600 hover:to-violet-600 cursor-pointer px-6 py-2 text-base font-semibold text-white shadow-sm hover:bg-indigo-500 disabled:opacity-75'
+
                                         >
-                                            Sign in
+                                            {loading ? <> <div class="custom-loader"></div></> : `Login`}
                                         </button>
                                     </div>
                                 </Form>

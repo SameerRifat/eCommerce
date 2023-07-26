@@ -56,6 +56,9 @@ const forgotPasswordSlice = createSlice({
     reducers: {
         clear_errors: (state)=>{
             state.error = ''
+        },
+        clear_message: (state)=>{
+            state.message = ''
         }
     },
     extraReducers: (builder)=>{
@@ -86,4 +89,4 @@ const forgotPasswordSlice = createSlice({
 })
 
 export default forgotPasswordSlice.reducer
-export const { clear_errors } = forgotPasswordSlice.actions
+export const { clear_errors, clear_message } = forgotPasswordSlice.actions

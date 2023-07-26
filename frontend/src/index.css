@@ -19,7 +19,7 @@ input:focus {
 /* Products page pagination styles */
 .pagination-container{
     padding-bottom: 40px;
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
     display: flex;
     justify-content: center;
 }
@@ -100,8 +100,8 @@ input::-webkit-inner-spin-button {
 
 /* loader spinner */
 .custom-loader {
-    width:35px;
-    height:35px;
+    width:34px;
+    height:34px;
     border-radius:50%;
     border:6px solid;
     border-color:#E4E4ED;

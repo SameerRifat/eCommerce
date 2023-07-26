@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { fetchProducts } from '../../features/product/productSlice'
+import { clearErrors, fetchProducts } from '../../features/product/productSlice'
 import Loader from '../Loader'
 import { useAlert } from 'react-alert'
 import ProductCard from './ProductCard'
@@ -89,7 +89,8 @@ const ProductsList = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     if (error) {
-      return alert.error(error)
+      alert.error(error)
+      dispatch(clearErrors())
     }
     dispatch(fetchProducts({ keyword: '' }))
     // console.log(products.length)
@@ -99,7 +100,7 @@ const ProductsList = () => {
       {loading ?
         <Loader />
         :
-        <div className="bg-gray-50 pt-3">
+        <div className="bg-gray-50 py-6">
           <div className="w-[96%] md:w-[94%] lg:w-[90%] mx-auto">
             <h2 className="text-lg font-semibold sm:text-xl md:text-2xl sm:font-bold tracking-tight text-gray-600">New Arrivals</h2>
 

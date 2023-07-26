@@ -64,7 +64,7 @@ const Cart = () => {
                                 return (
                                     <div className="flex justify-between border-t border-gray-200 py-6 last:border-b  last:border-gray-200" key={item.product}>
                                         <div className='flex'>
-                                            <div className="aspect-w-1 min-w-[96px] md:min-w-[112px] overflow-hidden rounded-sm h-28 md:h-32 cursor-pointer bg-gray-200">
+                                            <div className="aspect-w-1 min-w-[96px] md:min-w-[112px] overflow-hidden rounded-sm h-28 md:h-32 cursor-pointer bg-gray-100">
                                                 <img
                                                     src={item.color || item.image}
                                                     alt='product colors preview'

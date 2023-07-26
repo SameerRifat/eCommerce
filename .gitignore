@@ -1,1 +1,8 @@
-node_modules
+/frontend/node_modules
+/frontend/.pnp
+/frontend/.pnp.js
+/frontend/coverage
+/frontend/dist
+
+/node_modules
+/backend/config/config.env
